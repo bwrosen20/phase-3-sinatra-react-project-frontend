@@ -36,9 +36,23 @@ function App() {
   }
 
   function handleNewNote(newNote,book_id){
-    setBooks(books.map((book)=>book.id==book_id?{...book,["notes"]:{...book.notes,newNote}}:book))
-
-    console.log(newNote)
+    setBooks(books.map((book)=>{
+        if (book.id==book_id){
+          return {
+          id:book.id,
+          title:book.title,
+          author:book.author,
+          genre:book.genre,
+          blurb:book.blurb,
+          image_url:book.image_url,
+          read:book.read,
+          notes:[book.notes.push(newNote)]
+          }}
+        else
+          {return book}
+        }
+      ))
+      console.log(books.filter((book)=>book.id===book_id))
   }
 
   function finishedBook(event){

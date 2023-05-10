@@ -38,7 +38,7 @@ function BookPage({currentBook,onDeleteBook,handleUpdatedBook, finishedBook, onN
     }
 
     function handleNewNote(addNote,id){
-        setEditBook(false)
+        setAddNote(false)
         onNewNote(addNote,id)
     }
 
