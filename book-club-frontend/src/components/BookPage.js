@@ -39,7 +39,7 @@ function BookPage({currentBook,onDeleteBook,handleUpdatedBook, finishedBook}){
     }
 
     function handleDeleteNote(id){
-        setAllNotes(notes.filter((note)=>note.id!=id))
+        setAllNotes(allNotes.filter((note)=>note.id!=id))
     }
 
 return <div className="editcard">
