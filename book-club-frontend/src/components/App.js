@@ -35,6 +35,12 @@ function App() {
     history.push('/to-read')
   }
 
+  function handleNewNote(newNote,book_id){
+    setBooks(books.map((book)=>book.id==book_id?{...book,["notes"]:{...book.notes,newNote}}:book))
+
+    console.log(newNote)
+  }
+
   function finishedBook(event){
 
     console.log(currentBook.id)
@@ -75,7 +81,7 @@ function App() {
           <NewBook handleFormSubmit={handleFormSubmit}/>
         </Route>
         <Route exact path="/book">
-          <BookPage currentBook={currentBook} onDeleteBook={onDeleteBook} finishedBook={finishedBook}/>
+          <BookPage currentBook={currentBook} onDeleteBook={onDeleteBook} finishedBook={finishedBook} onNewNote={handleNewNote}/>
         </Route>
         <Route path="/">
           <Home books={books} handleClick={handleClick}/>

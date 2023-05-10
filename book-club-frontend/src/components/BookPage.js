@@ -3,13 +3,13 @@ import Note from './Note'
 import NewNote from './NewNote'
 import EditBook from './EditBook'
 
-function BookPage({currentBook,onDeleteBook,handleUpdatedBook, finishedBook}){
+function BookPage({currentBook,onDeleteBook,handleUpdatedBook, finishedBook, onNewNote}){
 
     const [addNote,setAddNote]=useState(false)
     const [editBook,setEditBook]=useState(false)
     const [editedBook,setEditedBook]=useState(currentBook)
     const {id,title,author,genre,blurb,image_url,read,notes}=editedBook
-    const [allNotes,setAllNotes]=useState(notes?notes:[])
+    const [allNotes,setAllNotes]=useState(notes)
 
     function deleteBook(){
         fetch(`http://localhost:9294/books/${id}`,{
@@ -21,11 +21,6 @@ function BookPage({currentBook,onDeleteBook,handleUpdatedBook, finishedBook}){
 
     function onAddNote(){
         setAddNote(!addNote)
-    }
-
-    function handleNewNote(note){
-        setAllNotes([...allNotes,note])
-        setAddNote(false)
     }
 
     function onEditChange(event){
@@ -40,6 +35,11 @@ function BookPage({currentBook,onDeleteBook,handleUpdatedBook, finishedBook}){
 
     function handleDeleteNote(id){
         setAllNotes(allNotes.filter((note)=>note.id!=id))
+    }
+
+    function handleNewNote(addNote,id){
+        setEditBook(false)
+        onNewNote(addNote,id)
     }
 
 return <div className="editcard">
