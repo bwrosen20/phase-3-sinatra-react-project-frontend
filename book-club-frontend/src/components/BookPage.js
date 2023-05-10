@@ -9,7 +9,7 @@ function BookPage({currentBook,onDeleteBook,handleUpdatedBook, finishedBook}){
     const [editBook,setEditBook]=useState(false)
     const [editedBook,setEditedBook]=useState(currentBook)
     const {id,title,author,genre,blurb,image_url,read,notes}=editedBook
-    const [allNotes,setAllNotes]=useState(notes)
+    const [allNotes,setAllNotes]=useState(notes?notes:[])
 
     function deleteBook(){
         fetch(`http://localhost:9294/books/${id}`,{
