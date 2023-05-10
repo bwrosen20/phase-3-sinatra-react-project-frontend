@@ -26,7 +26,7 @@ function App() {
   }
   
   function handleClick(event){
-    setCurrentBook((books.filter((book)=>(book.title==event.target.alt)))[0])
+    setCurrentBook(...(books.filter((book)=>(book.title==event.target.alt))))
     history.push('/book')
   }
 
