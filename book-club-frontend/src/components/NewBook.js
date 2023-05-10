@@ -56,6 +56,8 @@ return <div>
             Title:
         <input
         placeholder="Please input title"
+        autoFocus
+        autoComplete="off"
         type="text"
         name="title"
         value={input.title}
@@ -69,6 +71,7 @@ return <div>
             Author:
         <input placeholder="Please input author"
         type="text"
+        autoComplete="off"
         name="author"
         value={input.author}
         onChange={handleInput}/>
@@ -80,6 +83,7 @@ return <div>
             Genre:
         <input placeholder="Please input genre"
         type="text"
+        autoComplete="off"
         name="genre"
         value={input.genre}
         onChange={handleInput}/>
@@ -91,6 +95,7 @@ return <div>
             Blurb:
         <input placeholder="Please input brief description"
         type="text"
+        autoComplete="off"
         name="blurb"
         value={input.blurb}
         onChange={handleInput}/>

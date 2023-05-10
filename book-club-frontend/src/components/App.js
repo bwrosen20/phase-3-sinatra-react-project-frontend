@@ -52,7 +52,6 @@ function App() {
           {return book}
         }
       ))
-      console.log(books.filter((book)=>book.id===book_id))
   }
 
   function finishedBook(event){

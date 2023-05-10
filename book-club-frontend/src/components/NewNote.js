@@ -34,6 +34,7 @@ return <div className="editnote">
     <p className="ratingtitle">Rating:
     <input
         type="text"
+        autoFocus
         name="rating"
         autoComplete="off"
         placeholder="Please input rating"

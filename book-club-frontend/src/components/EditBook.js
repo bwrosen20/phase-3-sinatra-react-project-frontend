@@ -32,6 +32,7 @@ return <div className="editnote">
     <p className="ratingtitle">Image URL:
     <input
         type="text"
+        autoFocus
         name="image_url"
         autoComplete="off"
         value={image_url}
