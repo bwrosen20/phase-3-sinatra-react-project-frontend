@@ -34,6 +34,7 @@ return <div className="note">
             <p className="ratingtitle">Rating through {newNote.pages_read} pages: {newNote.rating}</p>
     <p >{newNote.body}</p>
     <button onClick={amIEditing}>Edit Note</button>
+    <button className="smallclose">X</button>
     </div>
     )}
     

@@ -122,6 +122,7 @@ label{
   border-color:black;
   margin:auto;
   overflow-wrap:break-word;
+  position:relative;
 
 }
 
@@ -158,6 +159,15 @@ label{
   cursor:pointer;
 }
 
+.smallclose{
+  position:absolute;
+  top:0;
+  right:0;
+  font-size:15px;
+  background-color:red;
+  cursor:pointer;
+}
+
 .parent{
   position:relative;
   display:inline-block;
@@ -179,4 +189,10 @@ label{
 .submit{
   margin-top:50px;
   position:relative;
+}
+
+.texnote{
+  position:relative;
+  display:inline-block;
+
 }
