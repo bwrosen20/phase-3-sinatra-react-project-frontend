@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import EditNote from "./EditNote"
 
-function Note({note}){
+function Note({note, handleDeleteNote}){
 
     const [isEditing,setIsEditing]=useState(false)
     const [newNote,setNewNote]=useState({
@@ -25,6 +25,13 @@ function Note({note}){
         setNewNote(updatedNote)
     }
    
+    function onDeleteNote(){
+            fetch(`http://localhost:9294/notes/${note.id}`,{
+                method:'DELETE',
+            })
+            handleDeleteNote(note.id)
+    }
+
 return <div className="note">
     
     {isEditing?(
@@ -34,7 +41,7 @@ return <div className="note">
             <p className="ratingtitle">Rating through {newNote.pages_read} pages: {newNote.rating}</p>
     <p >{newNote.body}</p>
     <button onClick={amIEditing}>Edit Note</button>
-    <button className="smallclose">X</button>
+    <button className="smallclose" onClick={onDeleteNote}>X</button>
     </div>
     )}
     

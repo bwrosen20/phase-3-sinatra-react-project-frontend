@@ -8,7 +8,7 @@ const {id,author,title,genre,blurb,image_url,read}=book
     function handleEditSubmit(event){
         event.preventDefault()
         
-        fetch(`http://localhost:9293/books/${id}`,{
+        fetch(`http://localhost:9294/books/${id}`,{
             method:"PATCH",
             headers: {
                 "Content-Type": "application/json",

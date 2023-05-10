@@ -17,7 +17,7 @@ function NewNote({handleNewNote, id}){
     function handleEditSubmit(event){
         event.preventDefault()
         
-        fetch(`http://localhost:9293/notes`,{
+        fetch(`http://localhost:9294/notes`,{
             method:"POST",
             headers: {
                 "Content-Type": "application/json",

@@ -12,7 +12,7 @@ function BookPage({currentBook,onDeleteBook,handleUpdatedBook, finishedBook}){
     const [allNotes,setAllNotes]=useState(notes)
 
     function deleteBook(){
-        fetch(`http://localhost:9293/books/${id}`,{
+        fetch(`http://localhost:9294/books/${id}`,{
             method: "DELETE",
         })
         onDeleteBook(id)
@@ -36,6 +36,10 @@ function BookPage({currentBook,onDeleteBook,handleUpdatedBook, finishedBook}){
     function handleUpdatedBook(updatedBook){
         setEditBook(false)
         setEditedBook(updatedBook)
+    }
+
+    function handleDeleteNote(id){
+        setAllNotes(notes.filter((note)=>note.id!=id))
     }
 
 return <div className="editcard">
@@ -62,7 +66,7 @@ return <div className="editcard">
 
 
     {allNotes.map((note)=>(
-        <Note note={note} key={note.body}/>
+        <Note note={note} key={note.body} handleDeleteNote={handleDeleteNote}/>
     ))}
     {addNote?
     <div>

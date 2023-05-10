@@ -8,7 +8,7 @@ const {id,pages_read,rating,body}=newNote
     function handleEditSubmit(event){
         event.preventDefault()
         
-        fetch(`http://localhost:9293/notes/${id}`,{
+        fetch(`http://localhost:9294/notes/${id}`,{
             method:"PATCH",
             headers: {
                 "Content-Type": "application/json",

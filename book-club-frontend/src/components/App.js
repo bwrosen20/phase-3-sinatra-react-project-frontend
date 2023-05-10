@@ -13,7 +13,7 @@ function App() {
   const history=useHistory()
 
   useEffect(()=>{
-    fetch("http://localhost:9293/books")
+    fetch("http://localhost:9294/books")
       .then((r)=>r.json())
       .then((data)=>setBooks(data))
   },[])
@@ -39,7 +39,7 @@ function App() {
 
     console.log(currentBook.id)
 
-    fetch(`http://localhost:9293/books/${currentBook.id}`,{
+    fetch(`http://localhost:9294/books/${currentBook.id}`,{
             method:"PATCH",
             headers: {
                 "Content-Type": "application/json",
