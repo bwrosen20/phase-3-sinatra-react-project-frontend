@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import Book from './Book'
 
 function ToReadPage({books, handleClick}){

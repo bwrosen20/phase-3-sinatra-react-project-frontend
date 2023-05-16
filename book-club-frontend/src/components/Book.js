@@ -3,7 +3,7 @@ import React from 'react'
 function Books({book, handleClick}){
 
     const {id,title,author,genre,blurb,image_url,read,notes}=book
-    const highRating=Math.max(...notes.map((note)=>note.rating))
+    const highRating=(notes.map((note)=>note.rating)).pop()
 
 return <div className="card" value={title}>
     

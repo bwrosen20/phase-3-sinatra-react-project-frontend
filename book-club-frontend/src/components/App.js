@@ -21,42 +21,60 @@ function App() {
 
   function handleFormSubmit(book){
     setBooks([...books,book])
-    setCurrentBook(book)
     console.log("form submitted")
+  }
+
+  function onUpdatedBook(updatedBook){
+    setBooks(books.map((book)=>(book.id===updatedBook.id?updatedBook:book)))
   }
   
   function handleClick(event){
-    setCurrentBook(...(books.filter((book)=>(book.title==event.target.alt))))
+    setCurrentBook(...(books.filter((book)=>(book.title===event.target.alt))))
     history.push('/book')
   }
 
   function onDeleteBook(id){
-    setBooks(books.filter((book)=>(parseInt(book.id)!=id)))
+    setBooks(books.filter((book)=>(parseInt(book.id)!==id)))
     history.push('/to-read')
   }
+  
+  
+  function handleDeleteNote(id){
+    const newNotes=currentBook.notes.filter((note)=>note.id!==id)
+    const currentId=currentBook.id
+    console.log(books)
+    setBooks(books.map((book)=>book.id===currentBook.id?{...book,notes:newNotes}:book))
+    console.log(books)
+    setCurrentBook(books.filter((book)=>(book.id===currentId)))
+}
 
-  function handleNewNote(newNote,book_id){
+  function onNewNote(addNote){
+
+    const currentId=currentBook.id
+  
     setBooks(books.map((book)=>{
-        if (book.id==book_id){
+        if (book.id===currentBook.id){
           return {
-          id:book.id,
+          id:currentBook.id,
           title:book.title,
           author:book.author,
           genre:book.genre,
           blurb:book.blurb,
           image_url:book.image_url,
           read:book.read,
-          notes:[book.notes.push(newNote)]
+          notes:[...book.notes,addNote]
           }}
         else
           {return book}
         }
       ))
+      setCurrentBook(books.filter((book)=>(book.id===currentId)))
   }
 
-  function finishedBook(event){
+  function finishedBook(){
 
-    console.log(currentBook.id)
+    console.log(currentBook.notes)
+
 
     fetch(`http://localhost:9294/books/${currentBook.id}`,{
             method:"PATCH",
@@ -73,7 +91,8 @@ function App() {
             }),
         })
         .then((r)=>r.json())
-        .then(setBooks(books.map((book)=>(book.id==event.target.id?{...book,["read"]:true}:book))))
+        .then(setBooks(books.map((book)=>(book.id===currentBook.id?{...book,"read":true}:book))))
+
 
     history.push('/')
 
@@ -94,7 +113,7 @@ function App() {
           <NewBook handleFormSubmit={handleFormSubmit}/>
         </Route>
         <Route exact path="/book">
-          <BookPage currentBook={currentBook} onDeleteBook={onDeleteBook} finishedBook={finishedBook} onNewNote={handleNewNote}/>
+          <BookPage setCurrentBook={setCurrentBook} currentBook={currentBook} onDeleteBook={onDeleteBook} finishedBook={finishedBook} onNewNote={onNewNote} onUpdatedBook={onUpdatedBook} handleDeleteNote={handleDeleteNote}/>
         </Route>
         <Route path="/">
           <Home books={books} handleClick={handleClick}/>
