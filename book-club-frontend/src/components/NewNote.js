@@ -25,7 +25,7 @@ function NewNote({handleNewNote, id}){
             body: JSON.stringify(addNote),
         })
         .then((r)=>r.json())
-        .then((addNote)=>handleNewNote(addNote))
+        .then((addNote)=>handleNewNote(addNote,id))
 
     }
 

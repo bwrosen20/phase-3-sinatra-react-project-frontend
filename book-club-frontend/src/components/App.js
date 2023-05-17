@@ -9,7 +9,6 @@ import BookPage from "./BookPage"
 function App() {
 
   const [books,setBooks]=useState([])
-  const [currentBook,setCurrentBook]=useState({})
   const history=useHistory()
 
   useEffect(()=>{
@@ -29,8 +28,7 @@ function App() {
   }
   
   function handleClick(event){
-    setCurrentBook(...(books.filter((book)=>(book.title===event.target.alt))))
-    history.push('/book')
+    history.push(`/book/${event.target.alt}`)
   }
 
   function onDeleteBook(id){
@@ -39,21 +37,29 @@ function App() {
   }
   
   
-  function handleDeleteNote(id){
+  function handleDeleteNote(id,bookID){
+
+    const currentBook=books.find((book)=>book.id===bookID)
     const newNotes=currentBook.notes.filter((note)=>note.id!==id)
-    const currentId=currentBook.id
-    console.log(books)
-    setBooks(books.map((book)=>book.id===currentBook.id?{...book,notes:newNotes}:book))
-    console.log(books)
-    setCurrentBook(books.filter((book)=>(book.id===currentId)))
+    setBooks(books.map((book)=>book.id===currentBook.id?{...book,["notes"]:newNotes}:book))
+  
 }
 
-  function onNewNote(addNote){
 
-    const currentId=currentBook.id
+function onEditChange(){}
+
+  function onNewNote(addNote, bookID){
+
+
+    const currentId=bookID
+    const currentBook=books.find((book)=>book.id===bookID)
+    const notesArray=[...currentBook.notes,addNote]
+
+    console.log(notesArray)
   
     setBooks(books.map((book)=>{
-        if (book.id===currentBook.id){
+        if (book.id===currentId){
+          console.log("true")
           return {
           id:currentBook.id,
           title:book.title,
@@ -65,16 +71,17 @@ function App() {
           notes:[...book.notes,addNote]
           }}
         else
-          {return book}
+          {console.log("false")
+            return book}
         }
       ))
-      setCurrentBook(books.filter((book)=>(book.id===currentId)))
+
+      console.log(books)
   }
 
-  function finishedBook(){
+  function finishedBook(event){
 
-    console.log(currentBook.notes)
-
+    const currentBook=books.find((book)=>book.id===event.target.id)
 
     fetch(`http://localhost:9294/books/${currentBook.id}`,{
             method:"PATCH",
@@ -91,7 +98,7 @@ function App() {
             }),
         })
         .then((r)=>r.json())
-        .then(setBooks(books.map((book)=>(book.id===currentBook.id?{...book,"read":true}:book))))
+        .then(setBooks(books.map((book)=>(book.id===currentBook.id?{...book,["read"]:true}:book))))
 
 
     history.push('/')
@@ -112,8 +119,8 @@ function App() {
         <Route exact path="/new-book">
           <NewBook handleFormSubmit={handleFormSubmit}/>
         </Route>
-        <Route exact path="/book">
-          <BookPage setCurrentBook={setCurrentBook} currentBook={currentBook} onDeleteBook={onDeleteBook} finishedBook={finishedBook} onNewNote={onNewNote} onUpdatedBook={onUpdatedBook} handleDeleteNote={handleDeleteNote}/>
+        <Route exact path="/book/:title">
+          <BookPage books={books} onDeleteBook={onDeleteBook} finishedBook={finishedBook} onNewNote={onNewNote} onUpdatedBook={onUpdatedBook} handleDeleteNote={handleDeleteNote} onEditChange={onEditChange}/>
         </Route>
         <Route path="/">
           <Home books={books} handleClick={handleClick}/>

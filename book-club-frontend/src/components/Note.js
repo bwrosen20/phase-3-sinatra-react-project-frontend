@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import EditNote from "./EditNote"
 
-function Note({note, handleDeleteNote}){
+function Note({note, handleDeleteNote, bookID}){
 
     const [isEditing,setIsEditing]=useState(false)
     const [newNote,setNewNote]=useState({
@@ -29,7 +29,7 @@ function Note({note, handleDeleteNote}){
             fetch(`http://localhost:9294/notes/${note.id}`,{
                 method:'DELETE',
             })
-            handleDeleteNote(note.id)
+            handleDeleteNote(note.id,bookID)
     }
 
 return <div className="note">

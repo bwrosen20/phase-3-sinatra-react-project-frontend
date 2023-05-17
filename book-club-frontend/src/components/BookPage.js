@@ -1,14 +1,24 @@
 import React, {useState} from 'react'
+import {useParams} from 'react-router-dom'
 import Note from './Note'
 import NewNote from './NewNote'
 import EditBook from './EditBook'
 
-function BookPage({setCurrentBook, currentBook,onDeleteBook, finishedBook, onNewNote, onUpdatedBook, handleDeleteNote}){
+function BookPage({books, onDeleteBook, finishedBook, onNewNote, onUpdatedBook, handleDeleteNote, onEditChange}){
+
+    const {title}=useParams()
+
+    console.log(books)
+
+   const book=books.find((book)=>book.title===title)
+
+   console.log(book)
 
     const [addNote,setAddNote]=useState(false)
     const [editBook,setEditBook]=useState(false)
-    const {id,title,author,genre,blurb,image_url,read,notes}=currentBook
+    const {id,author,genre,blurb,read,image_url,notes}=book
     
+    console.log(notes)
 
     function deleteBook(){
         fetch(`http://localhost:9294/books/${id}`,{
@@ -17,18 +27,15 @@ function BookPage({setCurrentBook, currentBook,onDeleteBook, finishedBook, onNew
         onDeleteBook(id)
 
     }
-    function onEditChange(event){
-        setCurrentBook({...currentBook,[event.target.name]:event.target.value})
-    }
 
     function handleUpdatedBook(updatedBook){
         setEditBook(false)
         onUpdatedBook(updatedBook)
     }
 
-    function handleNewNote(addNote){
+    function handleNewNote(addNote, bookID){
         setAddNote(false)
-        onNewNote(addNote)
+        onNewNote(addNote, bookID)
     }
 
 
@@ -37,7 +44,7 @@ return <div className="editcard">
     
     {editBook?
         <div>
-        <EditBook book={currentBook} onEditChange={onEditChange} handleUpdatedBook={handleUpdatedBook}/>
+        <EditBook book={book} onEditChange={onEditChange} handleUpdatedBook={handleUpdatedBook}/>
         </div>
         :
     <div>
@@ -56,12 +63,12 @@ return <div className="editcard">
 
 
 
-    {notes.map((note)=>(
-        <Note note={note} key={note.body} handleDeleteNote={handleDeleteNote}/>
-    ))}
+    {notes?(notes.map((note)=>(
+        <Note note={note} key={note.body} bookID={id} handleDeleteNote={handleDeleteNote}/>
+    ))):null}
     {addNote?
     <div>
-    <NewNote handleNewNote={handleNewNote} id={id} book={currentBook}/>
+    <NewNote handleNewNote={handleNewNote} id={id} book={book}/>
     </div>:
     <div className="inline">
     {<button className="bottom" onClick={()=>setAddNote(!addNote)}>Add Note</button>}
