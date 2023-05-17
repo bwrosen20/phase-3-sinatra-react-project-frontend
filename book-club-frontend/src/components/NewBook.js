@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 
 function NewBook({handleFormSubmit}){
     const [input,setInput]=useState({
+        id:"",
         title:"",
         author:"",
         genre:"",
@@ -23,6 +24,7 @@ function NewBook({handleFormSubmit}){
         setTimeout(()=>{
             setSubmitted(false)
             setInput({
+                id:"",
                 title:"",
                 author:"",
                 genre:"",

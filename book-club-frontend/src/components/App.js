@@ -19,6 +19,9 @@ function App() {
   
 
   function handleFormSubmit(book){
+    const idArray=books.map((book)=>book.id)
+    const lastID=Math.max(...idArray)
+    book.id=lastID+1
     setBooks([...books,book])
     console.log("form submitted")
   }
@@ -39,7 +42,7 @@ function App() {
   }
 
   function onDeleteBook(id){
-    setBooks(books.filter((book)=>(parseInt(book.id)!==id)))
+    setBooks(books.filter((book)=>(parseInt(book.id)!==parseInt(id))))
     history.push('/to-read')
   }
   
