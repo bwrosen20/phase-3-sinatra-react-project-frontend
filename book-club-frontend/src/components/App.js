@@ -57,13 +57,11 @@ function App() {
 
 
     const currentId=bookID
-    const currentBook=books.find((book)=>book.id===bookID)
-    const notesArray=[...currentBook.notes,addNote]
-
-    console.log(notesArray)
+    const currentBook=books.find((book)=>book.id==bookID)
+    console.log(currentBook)
   
     setBooks(books.map((book)=>{
-        if (book.id===currentId){
+        if (book.id==currentId){
           console.log("true")
           return {
           id:currentBook.id,
