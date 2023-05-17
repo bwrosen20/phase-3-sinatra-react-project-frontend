@@ -7,7 +7,7 @@ function Books({book, handleClick}){
 
 return <div className="card" value={title}>
     
-    <img src={image_url} alt={title} onClick={handleClick}></img>
+    <img src={image_url} alt={id} onClick={handleClick}></img>
     <div className="container" value={id}>
     <h4>{title}</h4>
     <h5>By {author}</h5>

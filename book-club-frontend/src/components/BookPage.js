@@ -4,21 +4,20 @@ import Note from './Note'
 import NewNote from './NewNote'
 import EditBook from './EditBook'
 
-function BookPage({books, onDeleteBook, finishedBook, onNewNote, onUpdatedBook, handleDeleteNote, onEditChange}){
+function BookPage({books, onDeleteBook, finishedBook, onNewNote, onUpdatedBook, handleDeleteNote}){
 
-    const {title}=useParams()
+    const {id}=useParams()
 
-    console.log(books)
+    
+   const book=books.find((book)=>book.id===parseInt(id))
 
-   const book=books.find((book)=>book.title===title)
-
-   console.log(book)
+  
 
     const [addNote,setAddNote]=useState(false)
     const [editBook,setEditBook]=useState(false)
-    const {id,author,genre,blurb,read,image_url,notes}=book
+    const {title,author,genre,blurb,read,image_url,notes}=book
     
-    console.log(notes)
+    
 
     function deleteBook(){
         fetch(`http://localhost:9294/books/${id}`,{
@@ -44,7 +43,7 @@ return <div className="editcard">
     
     {editBook?
         <div>
-        <EditBook book={book} onEditChange={onEditChange} handleUpdatedBook={handleUpdatedBook}/>
+        <EditBook book={book} handleUpdatedBook={handleUpdatedBook}/>
         </div>
         :
     <div>

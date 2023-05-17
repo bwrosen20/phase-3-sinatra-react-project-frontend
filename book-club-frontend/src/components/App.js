@@ -24,10 +24,17 @@ function App() {
   }
 
   function onUpdatedBook(updatedBook){
-    setBooks(books.map((book)=>(book.id===updatedBook.id?updatedBook:book)))
+    console.log(updatedBook)
+    const currentBook=books.find((book)=>book.id==updatedBook.id)
+    const currentNotes=currentBook.notes
+
+    setBooks(books.map((book)=>(book.id==updatedBook.id?{...updatedBook,["notes"]:currentNotes}:book)))
+
+    console.log(books)
   }
   
   function handleClick(event){
+
     history.push(`/book/${event.target.alt}`)
   }
 
@@ -45,8 +52,6 @@ function App() {
   
 }
 
-
-function onEditChange(){}
 
   function onNewNote(addNote, bookID){
 
@@ -81,7 +86,11 @@ function onEditChange(){}
 
   function finishedBook(event){
 
-    const currentBook=books.find((book)=>book.id===event.target.id)
+    console.log(event.target)
+
+    const currentBook=books.find((book)=>book.id==event.target.id)
+
+    console.log(currentBook)
 
     fetch(`http://localhost:9294/books/${currentBook.id}`,{
             method:"PATCH",
@@ -119,8 +128,8 @@ function onEditChange(){}
         <Route exact path="/new-book">
           <NewBook handleFormSubmit={handleFormSubmit}/>
         </Route>
-        <Route exact path="/book/:title">
-          <BookPage books={books} onDeleteBook={onDeleteBook} finishedBook={finishedBook} onNewNote={onNewNote} onUpdatedBook={onUpdatedBook} handleDeleteNote={handleDeleteNote} onEditChange={onEditChange}/>
+        <Route exact path="/book/:id">
+          <BookPage books={books} onDeleteBook={onDeleteBook} finishedBook={finishedBook} onNewNote={onNewNote} onUpdatedBook={onUpdatedBook} handleDeleteNote={handleDeleteNote}/>
         </Route>
         <Route path="/">
           <Home books={books} handleClick={handleClick}/>
