@@ -25,9 +25,9 @@ function Filters({filterData,handleChange}){
             className="filterInput"
             value={filterData.filter}
             onChange={handleChange}>
-                <option>Recently Finished</option>
-                <option>Author</option>
+                <option>Choose Option</option>
                 <option>Title</option>
+                <option>Author</option>
                 <option>Rating</option>
             </select>
             </label>

@@ -12,7 +12,7 @@ function App() {
   const [books,setBooks]=useState([])
   const [filterData,setFilterData]=useState({
     input:"",
-    filter:"Recently Finished"
+    filter:"Choose Option"
 })
   const [showFilters,setShowFilters]=useState(true)
   const history=useHistory()
@@ -48,22 +48,17 @@ function App() {
         else if (filterData.filter=="Title"){
             booksToDisplay=booksToDisplay.sort((a,b)=>(a.title > b.title ? 1: -1))
         }
-        else if (filterData.filter=="Rating"){
+        else {
             booksToDisplay.forEach((book)=>{
               book.notes.length?book.rating=(book.notes[book.notes.length-1].rating):book.rating=0
             })
             booksToDisplay=booksToDisplay.sort((a,b)=> b.rating - a.rating)
         }
 
-
   function onUpdatedBook(updatedBook){
-    console.log(updatedBook)
     const currentBook=books.find((book)=>book.id==updatedBook.id)
     const currentNotes=currentBook.notes
-
     setBooks(books.map((book)=>(book.id==updatedBook.id?{...updatedBook,["notes"]:currentNotes}:book)))
-
-    console.log(books)
   }
   
   function handleClick(event){
