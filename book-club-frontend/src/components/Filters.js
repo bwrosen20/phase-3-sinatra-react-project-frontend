@@ -8,7 +8,7 @@ function Filters({filterData,handleChange}){
 
     return <div className="filterContainer">
 
-            
+            <label>Search By Title or Author
             <input
                 placeholder="Search"
                 type="text"
@@ -17,6 +17,8 @@ function Filters({filterData,handleChange}){
                 value={filterData.input}
                 onChange={handleChange}
             />
+            </label>
+            <label>Sort By
             <select
             placeholder="Sort By"
             name="filter"
@@ -28,7 +30,7 @@ function Filters({filterData,handleChange}){
                 <option>Title</option>
                 <option>Rating</option>
             </select>
-            <button>Select</button>
+            </label>
 
     </div>
 }

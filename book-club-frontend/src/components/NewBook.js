@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-function NewBook({handleFormSubmit}){
+function NewBook({handleFormSubmit, filterWillShow}){
     const [input,setInput]=useState({
         id:"",
         title:"",
@@ -12,6 +12,8 @@ function NewBook({handleFormSubmit}){
         notes:[]
     })
     const [submitted,setSubmitted]=useState(false)
+
+    filterWillShow(false)
 
     function handleInput(event){
         setInput({

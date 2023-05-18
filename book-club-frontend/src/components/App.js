@@ -14,6 +14,7 @@ function App() {
     input:"",
     filter:"Recently Finished"
 })
+  const [showFilters,setShowFilters]=useState(true)
   const history=useHistory()
 
   useEffect(()=>{
@@ -33,9 +34,11 @@ function App() {
 
   function handleChange(event){
     setFilterData({...filterData,[event.target.name]:event.target.value})
-    
-    
 }
+
+    function filterWillShow(value){
+      setShowFilters(value)
+    }
 
       let booksToDisplay=(books.filter((book)=>(((book.title).toLowerCase().includes((filterData.input).toLowerCase()))||((book.author).toLowerCase().includes((filterData.input).toLowerCase())))))
 
@@ -148,19 +151,19 @@ function App() {
     
     <div>
       <NavBar />
-      <Filters handleChange={handleChange} filterData={setFilterData}/>
+      {showFilters?<Filters handleChange={handleChange} filterData={setFilterData}/>:null}
       <Switch>
         <Route exact path="/to-read">
-          <ToReadPage books={booksToDisplay} handleClick={handleClick}/>
+          <ToReadPage books={booksToDisplay} handleClick={handleClick} filterWillShow={filterWillShow}/>
         </Route>
         <Route exact path="/new-book">
-          <NewBook handleFormSubmit={handleFormSubmit}/>
+          <NewBook handleFormSubmit={handleFormSubmit} filterWillShow={filterWillShow}/>
         </Route>
         <Route exact path="/book/:id">
-          <BookPage books={books} onDeleteBook={onDeleteBook} finishedBook={finishedBook} onNewNote={onNewNote} onUpdatedBook={onUpdatedBook} handleDeleteNote={handleDeleteNote}/>
+          <BookPage books={books} onDeleteBook={onDeleteBook} finishedBook={finishedBook} onNewNote={onNewNote} onUpdatedBook={onUpdatedBook} handleDeleteNote={handleDeleteNote} filterWillShow={filterWillShow}/>
         </Route>
         <Route path="/">
-          <Home books={booksToDisplay} handleClick={handleClick}/>
+          <Home books={booksToDisplay} handleClick={handleClick} filterWillShow={filterWillShow}/>
         </Route>
       </Switch>
       

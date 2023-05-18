@@ -1,8 +1,9 @@
 import React from 'react'
 import Book from './Book'
 
-function Home({books, handleClick}){
+function Home({books, handleClick, filterWillShow}){
 
+    filterWillShow(true)
 
 return <div>
 
