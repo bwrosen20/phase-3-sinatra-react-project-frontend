@@ -5,7 +5,6 @@ import ToReadPage from './ToReadPage'
 import NewBook from './NewBook'
 import {Route,Switch,useHistory} from "react-router-dom"
 import BookPage from "./BookPage"
-import Filters from "./Filters"
 
 function App() {
 
@@ -14,7 +13,6 @@ function App() {
     input:"",
     filter:"Choose Option"
 })
-  const [showFilters,setShowFilters]=useState(true)
   const history=useHistory()
 
   useEffect(()=>{
@@ -36,9 +34,7 @@ function App() {
     setFilterData({...filterData,[event.target.name]:event.target.value})
 }
 
-    function filterWillShow(value){
-      setShowFilters(value)
-    }
+
 
       let booksToDisplay=(books.filter((book)=>(((book.title).toLowerCase().includes((filterData.input).toLowerCase()))||((book.author).toLowerCase().includes((filterData.input).toLowerCase())))))
 
@@ -146,19 +142,18 @@ function App() {
     
     <div>
       <NavBar />
-      {showFilters?<Filters handleChange={handleChange} filterData={setFilterData}/>:null}
       <Switch>
         <Route exact path="/to-read">
-          <ToReadPage books={booksToDisplay} handleClick={handleClick} filterWillShow={filterWillShow}/>
+          <ToReadPage books={booksToDisplay} handleClick={handleClick} handleChange={handleChange} filterData={filterData}/>
         </Route>
         <Route exact path="/new-book">
-          <NewBook handleFormSubmit={handleFormSubmit} filterWillShow={filterWillShow}/>
+          <NewBook handleFormSubmit={handleFormSubmit} />
         </Route>
         <Route exact path="/book/:id">
-          <BookPage books={books} onDeleteBook={onDeleteBook} finishedBook={finishedBook} onNewNote={onNewNote} onUpdatedBook={onUpdatedBook} handleDeleteNote={handleDeleteNote} filterWillShow={filterWillShow}/>
+          <BookPage books={books} onDeleteBook={onDeleteBook} finishedBook={finishedBook} onNewNote={onNewNote} onUpdatedBook={onUpdatedBook} handleDeleteNote={handleDeleteNote} />
         </Route>
         <Route path="/">
-          <Home books={booksToDisplay} handleClick={handleClick} filterWillShow={filterWillShow}/>
+          <Home books={booksToDisplay} handleClick={handleClick} handleChange={handleChange} filterData={filterData}/>
         </Route>
       </Switch>
       

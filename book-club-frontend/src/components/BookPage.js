@@ -4,15 +4,14 @@ import Note from './Note'
 import NewNote from './NewNote'
 import EditBook from './EditBook'
 
-function BookPage({books, onDeleteBook, finishedBook, onNewNote, onUpdatedBook, handleDeleteNote, filterWillShow}){
+function BookPage({books, onDeleteBook, finishedBook, onNewNote, onUpdatedBook, handleDeleteNote}){
 
     const {id}=useParams()
     const book=books.find((book)=>book.id===parseInt(id))
     const [addNote,setAddNote]=useState(false)
     const [editBook,setEditBook]=useState(false)
     const {title,author,genre,blurb,read,image_url,notes}=book
-    
-    filterWillShow(false)
+
     
 
     function deleteBook(){
