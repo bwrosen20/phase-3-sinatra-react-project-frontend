@@ -5,10 +5,15 @@ import ToReadPage from './ToReadPage'
 import NewBook from './NewBook'
 import {Route,Switch,useHistory} from "react-router-dom"
 import BookPage from "./BookPage"
+import Filters from "./Filters"
 
 function App() {
 
   const [books,setBooks]=useState([])
+  const [filterData,setFilterData]=useState({
+    input:"",
+    filter:"Recently Finished"
+})
   const history=useHistory()
 
   useEffect(()=>{
@@ -25,6 +30,28 @@ function App() {
     setBooks([...books,book])
     console.log("form submitted")
   }
+
+  function handleChange(event){
+    setFilterData({...filterData,[event.target.name]:event.target.value})
+    
+    
+}
+
+      let booksToDisplay=(books.filter((book)=>(((book.title).toLowerCase().includes((filterData.input).toLowerCase()))||((book.author).toLowerCase().includes((filterData.input).toLowerCase())))))
+
+        if (filterData.filter=="Author"){
+            booksToDisplay=booksToDisplay.sort((a,b)=>(a.author > b.author ? 1 : -1))
+        }
+        else if (filterData.filter=="Title"){
+            booksToDisplay=booksToDisplay.sort((a,b)=>(a.title > b.title ? 1: -1))
+        }
+        else if (filterData.filter=="Rating"){
+            booksToDisplay.forEach((book)=>{
+              book.notes.length?book.rating=(book.notes[book.notes.length-1].rating):book.rating=0
+            })
+            booksToDisplay=booksToDisplay.sort((a,b)=> b.rating - a.rating)
+        }
+
 
   function onUpdatedBook(updatedBook){
     console.log(updatedBook)
@@ -49,7 +76,7 @@ function App() {
   
   function handleDeleteNote(id,bookID){
 
-    const currentBook=books.find((book)=>book.id===bookID)
+    const currentBook=books.find((book)=>book.id==bookID)
     const newNotes=currentBook.notes.filter((note)=>note.id!==id)
     setBooks(books.map((book)=>book.id===currentBook.id?{...book,["notes"]:newNotes}:book))
   
@@ -121,10 +148,10 @@ function App() {
     
     <div>
       <NavBar />
-
+      <Filters handleChange={handleChange} filterData={setFilterData}/>
       <Switch>
         <Route exact path="/to-read">
-          <ToReadPage books={books} handleClick={handleClick}/>
+          <ToReadPage books={booksToDisplay} handleClick={handleClick}/>
         </Route>
         <Route exact path="/new-book">
           <NewBook handleFormSubmit={handleFormSubmit}/>
@@ -133,7 +160,7 @@ function App() {
           <BookPage books={books} onDeleteBook={onDeleteBook} finishedBook={finishedBook} onNewNote={onNewNote} onUpdatedBook={onUpdatedBook} handleDeleteNote={handleDeleteNote}/>
         </Route>
         <Route path="/">
-          <Home books={books} handleClick={handleClick}/>
+          <Home books={booksToDisplay} handleClick={handleClick}/>
         </Route>
       </Switch>
       

@@ -5,8 +5,7 @@ function NewNote({handleNewNote, id}){
     const [addNote,setAddNote]=useState({
         body:"",
         rating:"",
-        pages_read:"",
-        book_id:id
+        pages_read:""
     })
 
 
@@ -17,7 +16,7 @@ function NewNote({handleNewNote, id}){
     function handleEditSubmit(event){
         event.preventDefault()
         
-        fetch(`http://localhost:9294/notes`,{
+        fetch(`http://localhost:9294/books/${id}`,{
             method:"POST",
             headers: {
                 "Content-Type": "application/json",

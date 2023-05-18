@@ -49,8 +49,6 @@ img {
   color:white;
   font-size:20px;
   text-align:center;
-  width:500px;
-  height:30px;
   height:30px;
   width:100%;
   margin-top:20px;
@@ -70,6 +68,7 @@ h1{
   font-size:50px;
   font-weight:bold;
   color:darkslategray;
+  margin-top:75px;
 }
 
 h2{
@@ -194,5 +193,26 @@ label{
 .texnote{
   position:relative;
   display:inline-block;
+
+}
+
+.filterContainer{
+  color:white;
+  font-size:20px;
+  text-align:center;
+  height:10px;
+  width:100%;
+  margin-top:10px;
+
+  
+
+}
+
+.filterInput{
+  width:25%;
+  height:30px;
+  padding:0px;
+  text-align:center;
+  margin-top:20px;
 
 }
