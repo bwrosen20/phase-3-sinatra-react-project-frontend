@@ -29,7 +29,7 @@ function NewBook({handleFormSubmit}){
                 author:"",
                 genre:"",
                 blurb:"",
-                image_url:"",
+                image_url:""
             })
         },2000)
     }

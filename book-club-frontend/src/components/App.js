@@ -19,15 +19,11 @@ function App() {
     fetch("http://localhost:9294/books")
       .then((r)=>r.json())
       .then((data)=>setBooks(data))
-  },[])
+  },[books.length])
   
 
   function handleFormSubmit(book){
-    const idArray=books.map((book)=>book.id)
-    const lastID=Math.max(...idArray)
-    book.id=lastID+1
     setBooks([...books,book])
-    console.log("form submitted")
   }
 
   function handleChange(event){
@@ -82,7 +78,6 @@ function App() {
 
     const currentId=bookID
     const currentBook=books.find((book)=>book.id==bookID)
-    console.log(currentBook)
   
     setBooks(books.map((book)=>{
         if (book.id==currentId){
@@ -103,7 +98,6 @@ function App() {
         }
       ))
 
-      console.log(books)
   }
 
   function finishedBook(event){
@@ -164,22 +158,4 @@ function App() {
 }
 
 export default App;
-
-
-//book club app
-    //users will read a new book every week
-    //the homepage will show the last 7 books
-    //there will be an option to show all/more
-    //be able to filter books that have been read
-    //shows what would currently be the next book (whichever has the most votes)
-//Book review page
-    //appears when book is clicked
-    //it will show the average rating
-    //it will show a list of everyones reviews
-    //there will be the option to edit your own review
-//login screen
-    //sets the active user who can change their own review
-//book recs screen
-    //each user can vote up a book if they'd like to read it
-    //be able to filter books recs
 
