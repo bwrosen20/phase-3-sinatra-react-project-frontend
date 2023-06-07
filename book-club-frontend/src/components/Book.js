@@ -3,11 +3,11 @@ import React from 'react'
 function Books({book, handleClick}){
 
     const {id,title,author,genre,blurb,image_url,read,notes}=book
-    const highRating=(notes.map((note)=>note.rating)).pop()
+    const highRating=notes.length>0 ? (notes.map((note)=>note.rating)).pop() : 0
 
 return <div className="card" value={title}>
     
-    <img src={image_url} alt={id} onClick={handleClick}></img>
+    <img src={image_url} alt={id} onClick={handleClick} className="smallimg"></img>
     <div className="container" value={id}>
     <h4>{title}</h4>
     <h5>By {author}</h5>

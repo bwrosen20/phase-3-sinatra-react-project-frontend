@@ -1,5 +1,4 @@
 
-/* Add some padding inside the card container */
 
 :root{
   background-color:lightblue;
@@ -16,7 +15,7 @@
 .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  border-radius: 5px; /* 5px rounded corners */
+  border-radius: 5px; 
   width:15.75%;
   height:auto;
   display:inline-block;
@@ -28,8 +27,8 @@
 
 }
 
-/* Add rounded corners to the top left and the top right corner of the image */
-img {
+
+.smallimg {
   margin-top:0px;
   border-radius: 5px 5px 0 0;
   object-fit:cover;
@@ -38,7 +37,6 @@ img {
   cursor:pointer;
 }
 
-/* On mouse-over, add a deeper shadow */
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   
@@ -126,7 +124,7 @@ label{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .6);
   transition: 0.3s;
   width:60%;
-  height:350px;
+  height:275px;
   border-radius:10px;
   border-color:black;
   margin:auto;
@@ -175,6 +173,7 @@ label{
   padding:10px;
   width:100px;
   margin-top:20px;
+  cursor: pointer;
 }
 
 .inline{
@@ -183,7 +182,8 @@ label{
 }
 
 .submit{
-  margin-top:50px;
+  cursor:pointer;
+  margin-top:10px;
   position:relative;
 }
 

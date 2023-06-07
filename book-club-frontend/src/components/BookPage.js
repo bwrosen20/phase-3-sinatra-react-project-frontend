@@ -52,7 +52,7 @@ return <div className="editcard">
     <h5>By {author}</h5>
     <h5>{genre}</h5>
     <p>{blurb}</p>
-    <button onClick={(()=>setEditBook(true))}>Edit Book</button>
+    <button onClick={(()=>setEditBook(true))} className="submit">Edit Book</button>
     </div>
 
 

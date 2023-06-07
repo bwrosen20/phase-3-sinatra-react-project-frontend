@@ -19,10 +19,11 @@ function App() {
     fetch("http://localhost:9294/books")
       .then((r)=>r.json())
       .then((data)=>setBooks(data))
-  },[books.length])
+  },[])
   
 
   function handleFormSubmit(book){
+    book.notes=[]
     setBooks([...books,book])
   }
 
@@ -42,7 +43,7 @@ function App() {
         }
         else {
             booksToDisplay.forEach((book)=>{
-              book.notes.length?book.rating=(book.notes[book.notes.length-1].rating):book.rating=0
+              book.notes.length>0 ? book.rating=(book.notes[book.notes.length-1].rating):book.rating=0
             })
             booksToDisplay=booksToDisplay.sort((a,b)=> b.rating - a.rating)
         }
@@ -81,7 +82,6 @@ function App() {
   
     setBooks(books.map((book)=>{
         if (book.id==currentId){
-          console.log("true")
           return {
           id:currentBook.id,
           title:book.title,
@@ -93,7 +93,7 @@ function App() {
           notes:[...book.notes,addNote]
           }}
         else
-          {console.log("false")
+          {
             return book}
         }
       ))

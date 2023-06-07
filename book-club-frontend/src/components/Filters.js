@@ -14,6 +14,7 @@ function Filters({filterData,handleChange}){
                 type="text"
                 name="input"
                 className="filterInput"
+                autoComplete="off"
                 value={filterData.input}
                 onChange={handleChange}
             />

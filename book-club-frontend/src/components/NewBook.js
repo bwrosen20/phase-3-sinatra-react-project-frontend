@@ -7,9 +7,7 @@ function NewBook({handleFormSubmit}){
         author:"",
         genre:"",
         blurb:"",
-        image_url:"",
-        read:false,
-        notes:[]
+        image_url:""
     })
     const [submitted,setSubmitted]=useState(false)
 
@@ -46,7 +44,7 @@ function NewBook({handleFormSubmit}){
             body:JSON.stringify(input),
         })
         .then((r)=>r.json())
-        .then(()=>handleFormSubmit(input))
+        .then((data)=>handleFormSubmit(data))
         bookWasAdded()
     }
 
@@ -117,7 +115,7 @@ return <div>
         <br></br>
         <br></br>
 
-        <button>
+        <button className="submit">
         Submit
         </button>
     </form>
